@@ -8,6 +8,7 @@ const data = tasks;
 
 function App() {
   const [tasks, setTasks] = useState(data);
+  const [showAddTask, setShowAddTask] = useState(false);
 
   const addTask = (task) => {
     const id = Math.floor(Math.random() * 10000) + 1
@@ -30,8 +31,8 @@ function App() {
   
   return (
     <div className="container">
-      <Header />
-      <AddTask onAdd={addTask} />
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+      {showAddTask && <AddTask onAdd={addTask} />}
       {tasks.length > 0 ? (
           <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
           ) : (
